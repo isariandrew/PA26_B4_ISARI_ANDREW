@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 public class Road {
     private RoadType roadType;
     private int length;
@@ -48,6 +50,28 @@ public class Road {
 
     public String toString() {
         return String.format("Road Type: %s, Length (meters): %d, Speed Limit: %d", roadTypeToString(), length, speedLimit);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+
+        if (obj == null) return false;
+        if (getClass() != obj.getClass()) return false;
+
+        final Road other = (Road) obj;
+        if (!Objects.equals(this.roadType, other.roadType)) {
+            return false;
+        }
+
+        if (!Objects.equals(this.length, other.length)) {
+            return false;
+        }
+
+        if (!Objects.equals(this.speedLimit, other.speedLimit)) {
+            return false;
+        }
+
+        return true;
     }
 
 

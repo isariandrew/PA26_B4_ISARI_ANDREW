@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 public class Location {
     private String name;
     private LocationType locationType;
@@ -58,6 +60,28 @@ public class Location {
     @Override
     public String toString(){
         return String.format("Location Name: %s, LocationType: %s, Coordinates: X -> %d; Y -> %d", name, locationTypeToString(), coordX, coordY);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+
+        if (obj == null) return false;
+        if (getClass() != obj.getClass()) return false;
+
+        final Location other = (Location) obj;
+        if (!Objects.equals(this.name, other.name)) {
+            return false;
+        }
+
+        if (!Objects.equals(this.locationType, other.locationType)) {
+            return false;
+        }
+
+        if (!(Objects.equals(this.coordX, other.coordX) && Objects.equals(this.coordY, other.coordY))) {
+            return false;
+        }
+
+        return true;
     }
 
 }
