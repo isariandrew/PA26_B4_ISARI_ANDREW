@@ -1,9 +1,9 @@
 import java.util.Objects;
 
-public class Location {
-    private String name;
-    private LocationType locationType;
-    private int coordX, coordY;
+abstract sealed class Location permits City, Airport, GasStation{
+    protected String name;
+    protected LocationType locationType;
+    protected int coordX, coordY;
 
     public Location(String name, LocationType newLocation, int coordX, int coordY) {
         this.name = name;
