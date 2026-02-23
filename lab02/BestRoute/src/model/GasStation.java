@@ -1,3 +1,7 @@
+package model;
+
+import enums.LocationType;
+
 public final class GasStation extends Location{
     private int gasPrice;
 

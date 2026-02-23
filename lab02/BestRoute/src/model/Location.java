@@ -1,3 +1,7 @@
+package model;
+
+import enums.LocationType;
+
 import java.util.Objects;
 
 abstract sealed class Location permits City, Airport, GasStation{
@@ -46,11 +50,11 @@ abstract sealed class Location permits City, Airport, GasStation{
 
     public String locationTypeToString() {
         switch(locationType) {
-            case City:
-                return "City";
-            case Airport:
-                return "Airport";
-            case GasStation:
+            case LocationType.City:
+                return "model.City";
+            case LocationType.Airport:
+                return "model.Airport";
+            case LocationType.GasStation:
                 return "Gas Station";
             default:
                 return "[ERROR] Unknown location type, please add location [ERROR]";
@@ -59,7 +63,7 @@ abstract sealed class Location permits City, Airport, GasStation{
 
     @Override
     public String toString(){
-        return String.format("Location Name: %s, LocationType: %s, Coordinates: X -> %d; Y -> %d", name, locationTypeToString(), coordX, coordY);
+        return String.format("model.Location Name: %s, enums.LocationType: %s, Coordinates: X -> %d; Y -> %d", name, locationTypeToString(), coordX, coordY);
     }
 
     @Override

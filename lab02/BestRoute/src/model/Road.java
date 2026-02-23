@@ -1,3 +1,7 @@
+package model;
+
+import enums.RoadType;
+
 import java.util.Objects;
 
 public class Road {
@@ -37,19 +41,19 @@ public class Road {
 
     public String roadTypeToString() {
         switch(roadType) {
-            case Country:
-                return "Country Road";
-            case Highway:
+            case RoadType.Country:
+                return "Country model.Road";
+            case RoadType.Highway:
                 return "Highway";
-            case Express:
-                return "Express Road";
+            case RoadType.Express:
+                return "Express model.Road";
             default:
                 return "[ERROR] Unknown road type, please add road type to the list [ERROR]";
         }
     }
 
     public String toString() {
-        return String.format("Road Type: %s, Length (meters): %d, Speed Limit: %d", roadTypeToString(), length, speedLimit);
+        return String.format("model.Road Type: %s, Length (meters): %d, Speed Limit: %d", roadTypeToString(), length, speedLimit);
     }
 
     @Override

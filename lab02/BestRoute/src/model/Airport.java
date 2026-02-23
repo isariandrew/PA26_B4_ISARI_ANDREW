@@ -1,3 +1,7 @@
+package model;
+
+import enums.LocationType;
+
 public final class Airport extends Location{
     private int numberOfTerminals;
 

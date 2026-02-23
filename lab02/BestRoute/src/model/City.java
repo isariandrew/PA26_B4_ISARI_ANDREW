@@ -1,3 +1,7 @@
+package model;
+
+import enums.LocationType;
+
 public final class City extends Location{
     private int population;
 
