@@ -7,9 +7,9 @@ import java.util.Objects;
 abstract sealed class Location permits City, Airport, GasStation{
     protected String name;
     protected LocationType locationType;
-    protected int coordX, coordY;
+    protected double coordX, coordY;
 
-    public Location(String name, LocationType newLocation, int coordX, int coordY) {
+    public Location(String name, LocationType newLocation, double coordX, double coordY) {
         this.name = name;
         this.locationType = newLocation;
         this.coordX = coordX;
@@ -32,33 +32,29 @@ abstract sealed class Location permits City, Airport, GasStation{
         this.locationType = locationType;
     }
 
-    public int getCoordX() {
+    public double getCoordX() {
         return coordX;
     }
 
-    public void setCoordX(int coordX) {
+    public void setCoordX(double coordX) {
         this.coordX = coordX;
     }
 
-    public int getCoordY() {
+    public double getCoordY() {
         return coordY;
     }
 
-    public void setCoordY(int coordY) {
+    public void setCoordY(double coordY) {
         this.coordY = coordY;
     }
 
     public String locationTypeToString() {
-        switch(locationType) {
-            case LocationType.City:
-                return "model.City";
-            case LocationType.Airport:
-                return "model.Airport";
-            case LocationType.GasStation:
-                return "Gas Station";
-            default:
-                return "[ERROR] Unknown location type, please add location [ERROR]";
-        }
+        return switch (locationType) {
+            case LocationType.City -> "City";
+            case LocationType.Airport -> "Airport";
+            case LocationType.GasStation -> "Gas Station";
+            default -> "[ERROR] Unknown location type, please add location [ERROR]";
+        };
     }
 
     @Override
@@ -81,11 +77,7 @@ abstract sealed class Location permits City, Airport, GasStation{
             return false;
         }
 
-        if (!(Objects.equals(this.coordX, other.coordX) && Objects.equals(this.coordY, other.coordY))) {
-            return false;
-        }
-
-        return true;
+        return Objects.equals(this.coordX, other.coordX) && Objects.equals(this.coordY, other.coordY);
     }
 
 }

@@ -6,10 +6,10 @@ import java.util.Objects;
 
 public class Road {
     private RoadType roadType;
-    private int length;
+    private long length;
     private int speedLimit;
 
-    public Road(RoadType roadType, int length, int speedLimit) {
+    public Road(RoadType roadType, long length, int speedLimit) {
         this.roadType = roadType;
         this.length = length;
         this.speedLimit = speedLimit;
@@ -23,7 +23,7 @@ public class Road {
         this.roadType = roadType;
     }
 
-    public int getLength() {
+    public long getLength() {
         return length;
     }
 
@@ -40,18 +40,15 @@ public class Road {
     }
 
     public String roadTypeToString() {
-        switch(roadType) {
-            case RoadType.Country:
-                return "Country model.Road";
-            case RoadType.Highway:
-                return "Highway";
-            case RoadType.Express:
-                return "Express model.Road";
-            default:
-                return "[ERROR] Unknown road type, please add road type to the list [ERROR]";
-        }
+        return switch (roadType) {
+            case RoadType.Country -> "Country Road";
+            case RoadType.Highway -> "Highway";
+            case RoadType.Express -> "Express Road";
+            default -> "[ERROR] Unknown road type, please add road type to the list [ERROR]";
+        };
     }
 
+    @Override
     public String toString() {
         return String.format("model.Road Type: %s, Length (meters): %d, Speed Limit: %d", roadTypeToString(), length, speedLimit);
     }
@@ -71,11 +68,7 @@ public class Road {
             return false;
         }
 
-        if (!Objects.equals(this.speedLimit, other.speedLimit)) {
-            return false;
-        }
-
-        return true;
+        return Objects.equals(this.speedLimit, other.speedLimit);
     }
 
 

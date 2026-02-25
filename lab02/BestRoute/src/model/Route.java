@@ -1,14 +1,21 @@
 package model;
 
+import enums.RoadType;
+
 public class Route {
     private Location firstLocation;
     private Location secondLocation;
     private Road road;
 
-    public Route(Location firstLocation, Location secondLocation, Road road) {
+    public Route(Location firstLocation, Location secondLocation, RoadType roadType, int speedLimit) {
         this.firstLocation = firstLocation;
         this.secondLocation = secondLocation;
-        this.road = road;
+
+        double dx = firstLocation.getCoordX() - secondLocation.coordX;
+        double dy = firstLocation.getCoordY() - secondLocation.coordY;
+
+        long length = Math.round(Math.sqrt((dx * dx + dy * dy)));
+        this.road = new Road(roadType, length, speedLimit);
     }
 
     public Location getFirstLocation() {
@@ -53,10 +60,6 @@ public class Route {
         if (!this.secondLocation.equals(other.secondLocation)){
             return false;
         }
-        if (!this.road.equals(other.road)){
-            return false;
-        }
-
-        return true;
+        return this.road.equals(other.road);
     }
 }
