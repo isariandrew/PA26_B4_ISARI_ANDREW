@@ -40,7 +40,7 @@ public class Problem {
     public void addRoute(Route newRoute) {
         for (Route route : routes) {
             if (route.equals(newRoute)) {
-                System.out.println("[ERROR] Route already exists REDUNDANT [ERROR].\n\n");
+                System.out.println("[ERROR] Route already exists REDUNDANT. [ERROR]\n\n");
             }
         }
         routes.add(newRoute);
@@ -49,6 +49,19 @@ public class Problem {
     public void addRoutes(Route ... newRoutes){
         for (Route route : newRoutes) {
             addRoute(route);
+        }
+    }
+
+    public boolean validateProblem(){
+        if (locations.size() > 1) {
+            System.out.println("[ERROR] Invalid number of locations to solve problem. [ERROR]\n\n");
+            return false;
+        }else if (!routes.isEmpty()) {
+            System.out.println("[ERROR] Unable to calculate fastest route due to missing data. [ERROR]\n\n");
+            return false;
+        } else {
+            System.out.println("Proposed problem variables have been validated. \n\n");
+            return true;
         }
     }
 }
