@@ -2,7 +2,7 @@ package relationshipService;
 
 import model.Person;
 
-public class PersonToPerson {
+public class PersonToPerson implements Relationship {
     private Person firstPerson;
     private Person secondPerson;
     private String contextOfRelationship;
@@ -13,27 +13,17 @@ public class PersonToPerson {
         this.contextOfRelationship = contextOfRelationship;
     }
 
-    public Person getFirstPerson() {
-        return firstPerson;
-    }
+    public Person getFirstPerson() { return firstPerson; }
+    public void setFirstPerson(Person firstPerson) { this.firstPerson = firstPerson; }
 
-    public void setFirstPerson(Person firstPerson) {
-        this.firstPerson = firstPerson;
-    }
+    public Person getSecondPerson() { return secondPerson; }
+    public void setSecondPerson(Person secondPerson) { this.secondPerson = secondPerson; }
 
-    public Person getSecondPerson() {
-        return secondPerson;
-    }
+    public String getContextOfRelationship() { return contextOfRelationship; }
+    public void setContextOfRelationship(String contextOfRelationship) { this.contextOfRelationship = contextOfRelationship; }
 
-    public void setSecondPerson(Person secondPerson) {
-        this.secondPerson = secondPerson;
-    }
-
-    public String getContextOfRelationship() {
-        return contextOfRelationship;
-    }
-
-    public void setContextOfRelationship(String contextOfRelationship) {
-        this.contextOfRelationship = contextOfRelationship;
+    @Override
+    public String getDescription() {
+        return "Knows " + secondPerson.getName() + " -> " + contextOfRelationship;
     }
 }

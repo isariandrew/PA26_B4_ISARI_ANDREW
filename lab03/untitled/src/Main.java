@@ -7,26 +7,36 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
 
         // --- Persons ---
-        Person alice     = new Programmer("p1", "Alice",   LocalDate.of(1995, 3, 12), "alice@mail.com",   "Java");
-        Person bob       = new Designer  ("p2", "Bob",     LocalDate.of(1992, 7, 24), "bob@mail.com",     "https://bobdesigns.io");
-        Person charlie   = new Person    ("p3", "Charlie", LocalDate.of(1988, 11, 5), "charlie@mail.com");
+        Programmer alice = new Programmer("p1", "Alice",   LocalDate.of(1995, 3, 12),  "alice@mail.com",   "Java");
+        Designer   bob   = new Designer  ("p2", "Bob",     LocalDate.of(1992, 7, 24),  "bob@mail.com",     "https://bobdesigns.io");
+        Person   charlie = new Person    ("p3", "Charlie", LocalDate.of(1988, 11, 5),  "charlie@mail.com");
 
         // --- Companies ---
         Company acme = new Company("c1", "Acme Corp", "Software");
         Company beta = new Company("c2", "Beta Ltd",  "Design");
 
         // --- Relationships ---
-        PersonToPerson rel1 = new PersonToPerson(alice, bob,     "Colleagues from university");
-        PersonToPerson rel2 = new PersonToPerson(bob,   charlie, "Met at a conference");
+        PersonToPerson aliceKnowsBob     = new PersonToPerson(alice, bob,     "Colleagues from university");
+        PersonToPerson bobKnowsCharlie   = new PersonToPerson(bob,   charlie, "Met at a conference");
 
-        PersonToCompany emp1 = new PersonToCompany((Person) alice, acme, jobTitle.Programmer);
-        PersonToCompany emp2 = new PersonToCompany(charlie,        acme, jobTitle.Designer);
-        PersonToCompany emp3 = new PersonToCompany((Person) bob,   beta, jobTitle.Designer);
+        PersonToCompany aliceAtAcme   = new PersonToCompany(alice,   acme, jobTitle.Programmer);
+        PersonToCompany charlieAtAcme = new PersonToCompany(charlie, acme, jobTitle.Designer);
+        PersonToCompany bobAtBeta     = new PersonToCompany(bob,     beta, jobTitle.Designer);
+
+        // --- Populate maps ---
+        alice.addRelationship(bob,     aliceKnowsBob);
+        alice.addRelationship(acme,    aliceAtAcme);
+
+        bob.addRelationship(charlie,   bobKnowsCharlie);
+        bob.addRelationship(beta,      bobAtBeta);
+
+        charlie.addRelationship(acme,  charlieAtAcme);
 
         // --- Mixed sorted list ---
         List<Profile> network = new ArrayList<>();
@@ -43,18 +53,12 @@ public class Main {
             System.out.println(p.getName() + " [" + p.getProfileId() + "]");
         }
 
-        System.out.println("\n=== Person-to-Person Relationships ===");
-        for (PersonToPerson rel : List.of(rel1, rel2)) {
-            System.out.println(rel.getFirstPerson().getName()
-                    + " knows " + rel.getSecondPerson().getName()
-                    + " -> " + rel.getContextOfRelationship());
-        }
-
-        System.out.println("\n=== Person-to-Company Relationships ===");
-        for (PersonToCompany emp : List.of(emp1, emp2, emp3)) {
-            System.out.println(emp.getPerson().getName()
-                    + " works at " + emp.getCompany().getName()
-                    + " as " + emp.getPosition());
+        System.out.println("\n=== Relationships per Person ===");
+        for (Person person : List.of(alice, bob, charlie)) {
+            System.out.println(person.getName() + ":");
+            for (Map.Entry<Profile, relationshipService.Relationship> entry : person.getRelationships().entrySet()) {
+                System.out.println("  " + entry.getValue().getDescription());
+            }
         }
     }
 }
