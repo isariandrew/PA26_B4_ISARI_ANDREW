@@ -3,6 +3,7 @@ package model;
 public class Company extends Network implements Profile, Comparable<Company> {
     private String name;
     private String industry;
+    private int relationshipCount = 0;
 
     public Company(String profileId, String name, String industry) {
         super(profileId);
@@ -12,12 +13,15 @@ public class Company extends Network implements Profile, Comparable<Company> {
 
     @Override
     public String getName() { return name; }
-
     public void setName(String name) { this.name = name; }
 
     public String getIndustry() { return industry; }
-
     public void setIndustry(String industry) { this.industry = industry; }
+
+    public void registerRelationship() { relationshipCount++; }
+
+    @Override
+    public int getImportance() { return relationshipCount; }
 
     @Override
     public int compareTo(Company other) {

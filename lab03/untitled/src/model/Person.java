@@ -30,11 +30,17 @@ public class Person extends Network implements Profile, Comparable<Person> {
 
     public void addRelationship(Profile profile, Relationship relationship) {
         relationships.put(profile, relationship);
+        if (profile instanceof Company company) {
+            company.registerRelationship();
+        }
     }
 
     public Map<Profile, Relationship> getRelationships() {
         return Collections.unmodifiableMap(relationships);
     }
+
+    @Override
+    public int getImportance() { return relationships.size(); }
 
     @Override
     public int compareTo(Person other) {
